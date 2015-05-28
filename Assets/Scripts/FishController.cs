@@ -6,7 +6,11 @@ public class FishController : MonoBehaviour {
 	public int hp = 2;
 	public float speed = 20f;
 
+	Animator anim;
+
 	void Start () {
+
+		anim = GetComponentInChildren<Animator> ();
 
 		speed = Random.Range (5f, 20f);
 
@@ -17,7 +21,9 @@ public class FishController : MonoBehaviour {
 		hp -= amt;
 		if (hp <= 0) {
 			hp = 0;
-			Destroy (gameObject);
+			anim.SetBool("die", true);
+			GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			GetComponent<BoxCollider> ().enabled = false;
 		}
 	}
 }
